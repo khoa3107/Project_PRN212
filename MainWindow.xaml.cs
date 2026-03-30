@@ -1,3 +1,4 @@
+using Project_PRN212.Views.Ingredients;
 using System.Windows;
 
 namespace Project_PRN212
@@ -39,17 +40,28 @@ namespace Project_PRN212
 
         private void BtnAdmin_Click(object sender, RoutedEventArgs e)
         {
-            txtContent.Text = "Hệ thống Quản lý Người dùng và Cửa hàng - Dành cho Admin.";
+            MessageBox.Show("Tính năng Quản lý User/Cửa hàng",
+                "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void BtnKitchen_Click(object sender, RoutedEventArgs e)
         {
-            txtContent.Text = "Quản lý Nguyên Liệu và Sản Xuất - Dành cho Bếp Trung Tâm.";
+            var btn = sender as System.Windows.Controls.Button;
+            if (btn?.Name == "btnManageIngredient")
+                new IngredientWindow { Owner = this }.ShowDialog();
+            else if (btn?.Name == "btnExport")
+                //4. Xuất hàng (shipments)
+                MessageBox.Show("Chức năng xuất hàng sẽ tích hợp sau.");
+        }
+
+        private void BtnProduction_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chức năng sản xuất sẽ tích hợp sau.");
         }
 
         private void BtnStore_Click(object sender, RoutedEventArgs e)
         {
-            txtContent.Text = "Nhận hàng và Kho Cửa Hàng - Dành cho Store Manager.";
+            MessageBox.Show("Chức năng cửa hàng/xuất hàng sẽ tích hợp sau.");
         }
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
