@@ -1,53 +1,31 @@
 <Window x:Class="Project_PRN212.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Hệ thống Dream Kitchen VN" Height="450" Width="800"
+        xmlns:views="clr-namespace:Project_PRN212.Views"
+        Title="Hệ thống Dream Kitchen VN" Height="720" Width="1080"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto" MaxWidth="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Grid.Column="0" Background="#f8f9fa" BorderBrush="#dee2e6" BorderThickness="0,0,1,0">
-            <StackPanel Margin="10">
-                <TextBlock Text="MENU" FontWeight="Bold" FontSize="16" Margin="0,10,0,20" Foreground="#333"/>
-                
-                <!-- Admin Role -->
-                <Button x:Name="btnManageUser" Content="Quản lý User (Admin)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnAdmin_Click"/>
-                
-                <!-- Kitchen Role -->
-                <Button x:Name="btnManageIngredient" Content="Nguyên Liệu (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnKitchen_Click"/>
-                <Button x:Name="btnExport" Content="Xuất Hàng (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnKitchen_Click"/>
-                
-                <!-- Store Role -->
-                <Button x:Name="btnReceive" Content="Nhận Hàng (Cửa hàng)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnStore_Click"/>
+        <views:Sidebar x:Name="AppSidebar" Grid.Column="0" Visibility="Collapsed" />
 
-            </StackPanel>
-        </Border>
-        
-        <!-- Main Content -->
-        <Grid Grid.Column="1">
+        <!-- Main Content Area -->
+        <Grid x:Name="MainContentGrid" Grid.Column="1" Background="#ECF0F1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <!-- Navbar -->
-            <Border Grid.Row="0" Background="#343a40" Padding="10">
-                <Grid>
-                    <TextBlock Text="Dream Kitchen VN" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <TextBlock x:Name="txtUserInfo" Text="Xin chào, User" Foreground="White" Margin="0,0,15,0" VerticalAlignment="Center"/>
-                        <Button Content="Đăng xuất" Width="80" Height="25" Click="BtnLogout_Click"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            
-            <TextBlock Grid.Row="1" x:Name="txtContent" Text="Chào mừng bạn đến hệ thống!" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#666"/>
+
+            <!-- Header -->
+            <views:Header x:Name="AppHeader" Grid.Row="0" Visibility="Collapsed" />
+
+            <!-- Navigation Frame -->
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
-
 </Window>

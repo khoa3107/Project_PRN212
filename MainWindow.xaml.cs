@@ -1,4 +1,6 @@
 using System.Windows;
+using System.Windows.Controls;
+using Project_PRN212.Pages;
 
 namespace Project_PRN212
 {
@@ -7,57 +9,69 @@ namespace Project_PRN212
         public MainWindow()
         {
             InitializeComponent();
-            CheckRole();
+
+            AppSidebar.OnNavigationRequested += AppSidebar_OnNavigationRequested;
+            AppHeader.OnLogoutRequested += AppHeader_OnLogoutRequested;
+
+            // Start by showing Login page, and hide Sidebar/Header
+            ShowLoginView();
         }
 
-        private void CheckRole()
+        public void ShowLoginView()
         {
-            if (App.CurrentUser != null)
+            App.CurrentUser = null;
+            AppSidebar.Visibility = Visibility.Collapsed;
+            AppHeader.Visibility = Visibility.Collapsed;
+
+            Grid.SetColumn(MainContentGrid, 0);
+            Grid.SetColumnSpan(MainContentGrid, 2);
+
+            MainFrame.Navigate(new LoginPage());
+        }
+
+        public void ShowMainApp()
+        {
+            if (App.CurrentUser == null) return;
+
+            Grid.SetColumn(MainContentGrid, 1);
+            Grid.SetColumnSpan(MainContentGrid, 1);
+
+            AppSidebar.Visibility = Visibility.Visible;
+            AppHeader.Visibility = Visibility.Visible;
+
+            AppHeader.SetUserInfo(App.CurrentUser.FullName, App.CurrentUser.Role);
+            AppSidebar.ApplyRole(App.CurrentUser.Role);
+
+            // Navigate to Dashboard
+            AppSidebar_OnNavigationRequested(this, "Dashboard");
+        }
+
+        private void AppSidebar_OnNavigationRequested(object? sender, string target)
+        {
+            AppHeader.SetTitle(target);
+            switch (target)
             {
-                txtUserInfo.Text = $"Xin chào, {App.CurrentUser.Username} ({App.CurrentUser.Role})";
-
-                string role = App.CurrentUser.Role;
-
-                if (role == "admin")
-                {
-                    btnManageUser.Visibility = Visibility.Visible;
-                    btnManageIngredient.Visibility = Visibility.Visible;
-                    btnExport.Visibility = Visibility.Visible;
-                    btnReceive.Visibility = Visibility.Visible;
-                }
-                else if (role == "kitchen")
-                {
-                    btnManageIngredient.Visibility = Visibility.Visible;
-                    btnExport.Visibility = Visibility.Visible;
-                }
-                else if (role == "store")
-                {
-                    btnReceive.Visibility = Visibility.Visible;
-                }
+                case "Dashboard":
+                    MainFrame.Navigate(new DashboardPage());
+                    break;
+                case "User":
+                    // MainFrame.Navigate(new UserPage());
+                    break;
+                case "Inventory":
+                    // MainFrame.Navigate(new InventoryPage());
+                    break;
+                case "Production":
+                    // MainFrame.Navigate(new ProductionPage());
+                    break;
+                case "Delivery":
+                    // MainFrame.Navigate(new DeliveryPage());
+                    break;
             }
         }
 
-        private void BtnAdmin_Click(object sender, RoutedEventArgs e)
+        private void AppHeader_OnLogoutRequested(object? sender, System.EventArgs e)
         {
-            txtContent.Text = "Hệ thống Quản lý Người dùng và Cửa hàng - Dành cho Admin.";
-        }
-
-        private void BtnKitchen_Click(object sender, RoutedEventArgs e)
-        {
-            txtContent.Text = "Quản lý Nguyên Liệu và Sản Xuất - Dành cho Bếp Trung Tâm.";
-        }
-
-        private void BtnStore_Click(object sender, RoutedEventArgs e)
-        {
-            txtContent.Text = "Nhận hàng và Kho Cửa Hàng - Dành cho Store Manager.";
-        }
-
-        private void BtnLogout_Click(object sender, RoutedEventArgs e)
-        {
-            App.CurrentUser = null;
-            LoginWindow login = new LoginWindow();
-            login.Show();
-            this.Close();
+            ShowLoginView();
         }
     }
 }

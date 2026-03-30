@@ -11,11 +11,6 @@ namespace Project_PRN212
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            using (var db = new Data.AppDbContext())
-            {
-                db.Database.EnsureCreated(); // Auto create database with seed data for testing
-            }
         }
     }
 }

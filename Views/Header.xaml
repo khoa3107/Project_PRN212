@@ -1,0 +1,28 @@
+<UserControl x:Class="Project_PRN212.Views.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="60" Background="#FFFFFF" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+    <Grid Margin="20,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock x:Name="txtTitle" Grid.Column="0" Text="Dashboard" VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Foreground="#333333"/>
+        
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock x:Name="txtUserInfo" Text="Xin chào, Admin !" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="#666666" FontSize="14"/>
+            <Button Content="Đăng xuất" Width="90" Height="32" Click="BtnLogout_Click"
+                    Background="#E74C3C" Foreground="White" BorderThickness="0" Cursor="Hand"
+                    FontWeight="SemiBold" FontSize="13">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
