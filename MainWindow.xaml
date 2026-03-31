@@ -21,6 +21,9 @@
                 <!-- Kitchen Role -->
                 <Button x:Name="btnManageIngredient" Content="Nguyên Liệu (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnKitchen_Click"/>
                 <Button x:Name="btnExport" Content="Xuất Hàng (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnKitchen_Click"/>
+
+                 <!-- Production Role -->
+                 <Button x:Name="btnProduction" Content="Sản Xuất (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnProduction_Click"/>
                 
                 <!-- Store Role -->
                 <Button x:Name="btnReceive" Content="Nhận Hàng (Cửa hàng)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnStore_Click"/>
