@@ -1,40 +1,29 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class ProductionPlan
 {
-    [Table("ProductionPlans")]
-    public class ProductionPlan
-    {
-        [Key]
-        public int PlanId { get; set; }
+    public int PlanId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string PlanName { get; set; } = string.Empty;
+    public string PlanName { get; set; } = null!;
 
-        [Required]
-        [MaxLength(100)]
-        public string DishName { get; set; } = string.Empty;
+    public string DishName { get; set; } = null!;
 
-        public int PlannedQuantity { get; set; }
+    public int PlannedQuantity { get; set; }
 
-        public DateOnly ProductionDate { get; set; }
+    public DateOnly ProductionDate { get; set; }
 
-        /// <summary>Planned | InProgress | Completed | Cancelled</summary>
-        [MaxLength(20)]
-        public string Status { get; set; } = "Planned";
+    public string Status { get; set; } = null!;
 
-        public int CreatedBy { get; set; }
+    public int CreatedBy { get; set; }
 
-        [MaxLength(255)]
-        public string? Note { get; set; }
+    public string? Note { get; set; }
 
-        // Navigation
-        [ForeignKey("CreatedBy")]
-        public User? Creator { get; set; }
+    public virtual User CreatedByNavigation { get; set; } = null!;
 
-        public ICollection<ProductionPlanDetail> Details { get; set; } = new List<ProductionPlanDetail>();
-        public ICollection<FinishedDish> FinishedDishes { get; set; } = new List<FinishedDish>();
-    }
+    public virtual ICollection<FinishedDish> FinishedDishes { get; set; } = new List<FinishedDish>();
+
+    public virtual ICollection<ProductionPlanDetail> ProductionPlanDetails { get; set; } = new List<ProductionPlanDetail>();
 }

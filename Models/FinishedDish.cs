@@ -1,37 +1,27 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class FinishedDish
 {
-    [Table("FinishedDishes")]
-    public class FinishedDish
-    {
-        [Key]
-        public int DishId { get; set; }
+    public int DishId { get; set; }
 
-        public int PlanId { get; set; }
+    public int PlanId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string DishName { get; set; } = string.Empty;
+    public string DishName { get; set; } = null!;
 
-        public int ProducedQuantity { get; set; }
+    public int ProducedQuantity { get; set; }
 
-        [MaxLength(50)]
-        public string Unit { get; set; } = "portion";
+    public string Unit { get; set; } = null!;
 
-        public DateOnly ProductionDate { get; set; }
+    public DateOnly ProductionDate { get; set; }
 
-        public DateOnly? ExpiryDate { get; set; }
+    public DateOnly? ExpiryDate { get; set; }
 
-        /// <summary>Available | Shipped | Expired</summary>
-        [MaxLength(20)]
-        public string Status { get; set; } = "Available";
+    public string Status { get; set; } = null!;
 
-        // Navigation
-        [ForeignKey("PlanId")]
-        public ProductionPlan? Plan { get; set; }
+    public virtual ProductionPlan Plan { get; set; } = null!;
 
-        public ICollection<ShipmentDetail> ShipmentDetails { get; set; } = new List<ShipmentDetail>();
-    }
+    public virtual ICollection<ShipmentDetail> ShipmentDetails { get; set; } = new List<ShipmentDetail>();
 }

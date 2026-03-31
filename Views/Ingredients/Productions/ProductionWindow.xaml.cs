@@ -1,17 +1,8 @@
-﻿using Project_PRN212.Data;
-using Project_PRN212.Models;
+﻿using Project_PRN212.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows;
-using System.Windows.Automation.Text;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project_PRN212.Views.Productions
 {
@@ -23,12 +14,14 @@ namespace Project_PRN212.Views.Productions
         public ProductionWindow()
         {
             InitializeComponent();
+            LoadData();
         }
         private void LoadData()
         {
-            using var db = new AppDbContext();
-            dgProduction.ItemsSource = db.ProductionOrders
-                .OrderByDescending(x => x.CreatedAt)
+            using var db = new CentralKitchenManagementContext();
+            dgProduction.ItemsSource = db.ProductionPlans
+                .Include(x => x.CreatedByNavigation)
+                .OrderByDescending(x => x.ProductionDate)
                 .ToList();
         }
 
@@ -36,29 +29,37 @@ namespace Project_PRN212.Views.Productions
         {
             txtError.Text = "";
 
+            string planName = txtPlanName.Text.Trim();
             string product = txtProduct.Text.Trim();
-            string unit = txtUnit.Text.Trim();
             string note = txtNote.Text.Trim();
 
-            if (string.IsNullOrEmpty(product) || !int.TryParse(txtQty.Text.Trim(), out int qty) || qty <= 0)
+            if (string.IsNullOrEmpty(planName) || string.IsNullOrEmpty(product) || !int.TryParse(txtQty.Text.Trim(), out int qty) || qty <= 0)
             {
-                txtError.Text = "Nhập đúng tên sản phẩm và số lượng (> 0).";
+                txtError.Text = "Nhập đầy đủ tên kế hoạch, tên món ăn và số lượng (> 0).";
                 return;
             }
 
-            using var db = new AppDbContext();
-            db.ProductionOrders.Add(new ProductionOrder
+            if (App.CurrentUser == null)
             {
-                ProductName = product,
-                Quantity = qty,
-                Unit = string.IsNullOrEmpty(unit) ? "cái" : unit,
+                txtError.Text = "Không tìm thấy thông tin đăng nhập.";
+                return;
+            }
+
+            using var db = new CentralKitchenManagementContext();
+            db.ProductionPlans.Add(new ProductionPlan
+            {
+                PlanName = planName,
+                DishName = product,
+                PlannedQuantity = qty,
+                ProductionDate = DateOnly.FromDateTime(DateTime.Today),
+                Status = "Planned",
                 Note = note,
-                CreatedBy = App.CurrentUser?.Username ?? "unknown"
+                CreatedBy = App.CurrentUser.UserId
             });
             db.SaveChanges();
 
             // Reset form
-            txtProduct.Text = txtQty.Text = txtUnit.Text = txtNote.Text = "";
+            txtPlanName.Text = txtProduct.Text = txtQty.Text = txtNote.Text = "";
             LoadData();
         }
     }

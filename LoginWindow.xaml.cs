@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Windows;
-using Project_PRN212.Data;
+using Project_PRN212.Models;
 
 namespace Project_PRN212
 {
@@ -23,7 +23,7 @@ namespace Project_PRN212
                 return;
             }
 
-            using var db = new AppDbContext();
+            using var db = new CentralKitchenManagementContext();
             
             var account = db.Users.FirstOrDefault(x => x.Username == user && x.Password == pass);
             

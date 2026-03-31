@@ -12,9 +12,9 @@ namespace Project_PRN212
         {
             base.OnStartup(e);
 
-            using (var db = new Data.AppDbContext())
+            using (var db = new Models.CentralKitchenManagementContext())
             {
-                db.Database.EnsureCreated(); // Auto create database with seed data for testing
+                // db.Database.EnsureCreated(); // Not needed for database first testing typically
             }
         }
     }

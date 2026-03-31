@@ -1,25 +1,19 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class ShipmentDetail
 {
-    [Table("ShipmentDetails")]
-    public class ShipmentDetail
-    {
-        [Key]
-        public int ShipmentDetailId { get; set; }
+    public int ShipmentDetailId { get; set; }
 
-        public int ShipmentId { get; set; }
+    public int ShipmentId { get; set; }
 
-        public int DishId { get; set; }
+    public int DishId { get; set; }
 
-        public int Quantity { get; set; }
+    public int Quantity { get; set; }
 
-        // Navigation
-        [ForeignKey("ShipmentId")]
-        public Shipment? Shipment { get; set; }
+    public virtual FinishedDish Dish { get; set; } = null!;
 
-        [ForeignKey("DishId")]
-        public FinishedDish? Dish { get; set; }
-    }
+    public virtual Shipment Shipment { get; set; } = null!;
 }

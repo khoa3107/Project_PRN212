@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Project_PRN212.Data;
 using Project_PRN212.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +20,7 @@ namespace Project_PRN212.Views.Ingredients
 
         private void LoadIngredients()
         {
-            using var db = new AppDbContext();
+            using var db = new CentralKitchenManagementContext();
             _allIngredients = db.Ingredients.OrderBy(i => i.IngredientName).ToList();
             ApplyFilter();
         }
@@ -115,7 +114,7 @@ namespace Project_PRN212.Views.Ingredients
 
             try
             {
-                using var db = new AppDbContext();
+                using var db = new CentralKitchenManagementContext();
                 // Kiểm tra đang dùng trong kế hoạch nào không
                 bool inUse = db.ProductionPlanDetails.Any(d => d.IngredientId == id);
                 if (inUse)

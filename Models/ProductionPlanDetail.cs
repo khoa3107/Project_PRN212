@@ -1,26 +1,19 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class ProductionPlanDetail
 {
-    [Table("ProductionPlanDetails")]
-    public class ProductionPlanDetail
-    {
-        [Key]
-        public int PlanDetailId { get; set; }
+    public int PlanDetailId { get; set; }
 
-        public int PlanId { get; set; }
+    public int PlanId { get; set; }
 
-        public int IngredientId { get; set; }
+    public int IngredientId { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
-        public decimal RequiredQuantity { get; set; }
+    public decimal RequiredQuantity { get; set; }
 
-        // Navigation
-        [ForeignKey("PlanId")]
-        public ProductionPlan? Plan { get; set; }
+    public virtual Ingredient Ingredient { get; set; } = null!;
 
-        [ForeignKey("IngredientId")]
-        public Ingredient? Ingredient { get; set; }
-    }
+    public virtual ProductionPlan Plan { get; set; } = null!;
 }

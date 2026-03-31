@@ -1,33 +1,23 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class Store
 {
-    [Table("Stores")]
-    public class Store
-    {
-        [Key]
-        public int StoreId { get; set; }
+    public int StoreId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string StoreName { get; set; } = string.Empty;
+    public string StoreName { get; set; } = null!;
 
-        [Required]
-        [MaxLength(255)]
-        public string Address { get; set; } = string.Empty;
+    public string Address { get; set; } = null!;
 
-        [MaxLength(20)]
-        public string? Phone { get; set; }
+    public string? Phone { get; set; }
 
-        [MaxLength(100)]
-        public string? ManagerName { get; set; }
+    public string? ManagerName { get; set; }
 
-        [MaxLength(50)]
-        public string Status { get; set; } = "Active";
+    public string Status { get; set; } = null!;
 
-        // Navigation
-        public ICollection<User> Users { get; set; } = new List<User>();
-        public ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
-    }
+    public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
+
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

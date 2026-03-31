@@ -1,34 +1,23 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class Ingredient
 {
-    [Table("Ingredients")]
-    public class Ingredient
-    {
-        [Key]
-        public int IngredientId { get; set; }
+    public int IngredientId { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string IngredientName { get; set; } = string.Empty;
+    public string IngredientName { get; set; } = null!;
 
-        [Required]
-        [MaxLength(50)]
-        public string Unit { get; set; } = string.Empty;
+    public string Unit { get; set; } = null!;
 
-        [Column(TypeName = "decimal(10,2)")]
-        public decimal QuantityInStock { get; set; } = 0;
+    public decimal QuantityInStock { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal? ImportPrice { get; set; }
+    public decimal? ImportPrice { get; set; }
 
-        public DateTime LastUpdated { get; set; } = DateTime.Now;
+    public DateTime LastUpdated { get; set; }
 
-        [MaxLength(20)]
-        public string Status { get; set; } = "Available";
+    public string Status { get; set; } = null!;
 
-        // Navigation
-        public ICollection<ProductionPlanDetail> ProductionPlanDetails { get; set; } = new List<ProductionPlanDetail>();
-    }
+    public virtual ICollection<ProductionPlanDetail> ProductionPlanDetails { get; set; } = new List<ProductionPlanDetail>();
 }

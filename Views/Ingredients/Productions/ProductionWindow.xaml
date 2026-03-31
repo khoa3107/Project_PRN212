@@ -19,20 +19,20 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="txtProduct" Grid.Column="0" Margin="0,0,5,0"
-                         Tag="Tên sản phẩm" Style="{StaticResource PlaceholderStyle}"/>
-                <TextBox x:Name="txtQty"     Grid.Column="1" Margin="0,0,5,0"
+                <TextBox x:Name="txtPlanName" Grid.Column="0" Margin="0,0,5,0"
+                         Tag="Tên kế hoạch" Style="{StaticResource PlaceholderStyle}"/>
+                <TextBox x:Name="txtProduct"  Grid.Column="1" Margin="0,0,5,0"
+                         Tag="Tên món ăn" Style="{StaticResource PlaceholderStyle}"/>
+                <TextBox x:Name="txtQty"      Grid.Column="2" Margin="0,0,5,0"
                          Tag="SL" Style="{StaticResource PlaceholderStyle}"/>
-                <TextBox x:Name="txtUnit"    Grid.Column="2" Margin="0,0,5,0"
-                         Tag="Đơn vị" Style="{StaticResource PlaceholderStyle}"/>
-                <TextBox x:Name="txtNote"    Grid.Column="3" Margin="0,0,5,0"
+                <TextBox x:Name="txtNote"     Grid.Column="3" Margin="0,0,5,0"
                          Tag="Ghi chú" Style="{StaticResource PlaceholderStyle}"/>
-                <Button  x:Name="btnAdd"     Grid.Column="4" Content="Thêm" Width="60"
+                <Button  x:Name="btnAdd"      Grid.Column="4" Content="Thêm" Width="60"
                          Background="#28a745" Foreground="White" Click="BtnAdd_Click"/>
             </Grid>
         </Border>
@@ -45,13 +45,14 @@
                   AutoGenerateColumns="False" IsReadOnly="True"
                   CanUserAddRows="False" AlternatingRowBackground="#f8f9fa">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID"          Binding="{Binding Id}"          Width="40"/>
-                <DataGridTextColumn Header="Sản phẩm"   Binding="{Binding ProductName}"  Width="*"/>
-                <DataGridTextColumn Header="Số lượng"   Binding="{Binding Quantity}"     Width="70"/>
-                <DataGridTextColumn Header="Đơn vị"     Binding="{Binding Unit}"         Width="60"/>
-                <DataGridTextColumn Header="Ghi chú"    Binding="{Binding Note}"         Width="*"/>
-                <DataGridTextColumn Header="Ngày tạo"   Binding="{Binding CreatedAt, StringFormat=dd/MM/yyyy HH:mm}" Width="130"/>
-                <DataGridTextColumn Header="Người tạo"  Binding="{Binding CreatedBy}"    Width="90"/>
+                <DataGridTextColumn Header="ID"          Binding="{Binding PlanId}"             Width="40"/>
+                <DataGridTextColumn Header="Kế hoạch"    Binding="{Binding PlanName}"           Width="*"/>
+                <DataGridTextColumn Header="Món ăn"      Binding="{Binding DishName}"           Width="*"/>
+                <DataGridTextColumn Header="Số lượng"    Binding="{Binding PlannedQuantity}"    Width="70"/>
+                <DataGridTextColumn Header="Ngày SX"     Binding="{Binding ProductionDate, StringFormat=dd/MM/yyyy}" Width="90"/>
+                <DataGridTextColumn Header="Trạng thái"  Binding="{Binding Status}"             Width="90"/>
+                <DataGridTextColumn Header="Ghi chú"     Binding="{Binding Note}"               Width="*"/>
+                <DataGridTextColumn Header="Người tạo"   Binding="{Binding CreatedByNavigation.Username}" Width="90"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

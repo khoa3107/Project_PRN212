@@ -1,38 +1,29 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class User
 {
-    [Table("Users")]
-    public class User
-    {
-        [Key]
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Username { get; set; } = string.Empty;
+    public string Username { get; set; } = null!;
 
-        [Required]
-        [MaxLength(100)]
-        public string Password { get; set; } = string.Empty;
+    public string Password { get; set; } = null!;
 
-        [Required]
-        [MaxLength(100)]
-        public string FullName { get; set; } = string.Empty;
+    public string FullName { get; set; } = null!;
 
-        /// <summary>admin | kitchen | store</summary>
-        [Required]
-        [MaxLength(20)]
-        public string Role { get; set; } = string.Empty;
+    public string Role { get; set; } = null!;
 
-        public int? StoreId { get; set; }
+    public int? StoreId { get; set; }
 
-        [MaxLength(20)]
-        public string Status { get; set; } = "Active";
+    public string Status { get; set; } = null!;
 
-        // Navigation
-        [ForeignKey("StoreId")]
-        public Store? Store { get; set; }
-    }
+    public virtual ICollection<ProductionPlan> ProductionPlans { get; set; } = new List<ProductionPlan>();
+
+    public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
+
+    public virtual Store? Store { get; set; }
+
+    public virtual ICollection<StoreReceipt> StoreReceipts { get; set; } = new List<StoreReceipt>();
 }

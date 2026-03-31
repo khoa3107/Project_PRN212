@@ -1,35 +1,27 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
-namespace Project_PRN212.Models
+namespace Project_PRN212.Models;
+
+public partial class Shipment
 {
-    [Table("Shipments")]
-    public class Shipment
-    {
-        [Key]
-        public int ShipmentId { get; set; }
+    public int ShipmentId { get; set; }
 
-        public int StoreId { get; set; }
+    public int StoreId { get; set; }
 
-        public DateOnly ShipmentDate { get; set; }
+    public DateOnly ShipmentDate { get; set; }
 
-        public int CreatedBy { get; set; }
+    public int CreatedBy { get; set; }
 
-        /// <summary>Pending | Shipping | Received | Cancelled</summary>
-        [MaxLength(20)]
-        public string Status { get; set; } = "Pending";
+    public string Status { get; set; } = null!;
 
-        [MaxLength(255)]
-        public string? Note { get; set; }
+    public string? Note { get; set; }
 
-        // Navigation
-        [ForeignKey("StoreId")]
-        public Store? Store { get; set; }
+    public virtual User CreatedByNavigation { get; set; } = null!;
 
-        [ForeignKey("CreatedBy")]
-        public User? Creator { get; set; }
+    public virtual ICollection<ShipmentDetail> ShipmentDetails { get; set; } = new List<ShipmentDetail>();
 
-        public ICollection<ShipmentDetail> Details { get; set; } = new List<ShipmentDetail>();
-        public StoreReceipt? Receipt { get; set; }
-    }
+    public virtual Store Store { get; set; } = null!;
+
+    public virtual StoreReceipt? StoreReceipt { get; set; }
 }

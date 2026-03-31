@@ -1,5 +1,5 @@
-using Project_PRN212.Data;
 using Project_PRN212.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -52,7 +52,7 @@ namespace Project_PRN212.Views.Ingredients
 
             try
             {
-                using var db = new AppDbContext();
+                using var db = new CentralKitchenManagementContext();
 
                 if (_existing == null)
                 {

@@ -1,4 +1,3 @@
-using Project_PRN212.Data;
 using Project_PRN212.Models;
 using System.Windows;
 
@@ -34,7 +33,7 @@ namespace Project_PRN212.Views.Ingredients
 
             try
             {
-                using var db = new AppDbContext();
+                using var db = new CentralKitchenManagementContext();
                 var ing = db.Ingredients.Find(_ingredient.IngredientId)!;
                 ing.QuantityInStock += qty;
                 if (newPrice.HasValue) ing.ImportPrice = newPrice;
