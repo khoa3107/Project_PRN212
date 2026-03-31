@@ -56,6 +56,9 @@ namespace Project_PRN212
 
         private void BtnProduction_Click(object sender, RoutedEventArgs e)
         {
+            var btn = sender as System.Windows.Controls.Button;
+            if (btn?.Name == "btnProduction")
+                new Views.Productions.ProductionWindow { Owner = this }.ShowDialog();
             MessageBox.Show("Chức năng sản xuất sẽ tích hợp sau.");
         }
 
