@@ -99,5 +99,9 @@
                 <TextBlock x:Name="txtCount" HorizontalAlignment="Right" Foreground="#6c757d" VerticalAlignment="Center"/>
             </Grid>
         </Border>
+        
+        <!--Quay lại-->
+        <Button Content="Quay lại" Click="BtnBack_Click"/>
+        
     </Grid>
 </Window>

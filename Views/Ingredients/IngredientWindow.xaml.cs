@@ -12,9 +12,13 @@ namespace Project_PRN212.Views.Ingredients
         private List<Ingredient> _allIngredients = new();
         private bool _searchFocused = false;
 
+        //
+        private bool _isLoaded = false;
+
         public IngredientWindow()
         {
             InitializeComponent();
+            _isLoaded = true;
             LoadIngredients();
         }
 
@@ -27,17 +31,18 @@ namespace Project_PRN212.Views.Ingredients
 
         private void ApplyFilter()
         {
+            if (!_isLoaded || txtSearch == null || cboStatus == null || dgIngredients == null || txtCount == null)
+                return;
+
             var query = _allIngredients.AsEnumerable();
 
-            // Lọc theo tên
             string keyword = txtSearch.Text.Trim();
             if (!string.IsNullOrEmpty(keyword) && keyword != "Tìm kiếm tên nguyên liệu...")
                 query = query.Where(i => i.IngredientName.Contains(keyword, System.StringComparison.OrdinalIgnoreCase));
 
-            // Lọc theo trạng thái
-            if (cboStatus.SelectedIndex > 0)
+            if (cboStatus.SelectedIndex > 0 && cboStatus.SelectedItem is ComboBoxItem item)
             {
-                string status = ((ComboBoxItem)cboStatus.SelectedItem).Content.ToString()!;
+                string status = item.Content?.ToString() ?? "";
                 query = query.Where(i => i.Status == status);
             }
 
@@ -68,8 +73,17 @@ namespace Project_PRN212.Views.Ingredients
             }
         }
 
-        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e) => ApplyFilter();
-        private void CboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e) => ApplyFilter();
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!_isLoaded) return;
+            ApplyFilter();
+        }
+
+        private void CboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_isLoaded) return;
+            ApplyFilter();
+        }
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
             LoadIngredients();
@@ -147,6 +161,12 @@ namespace Project_PRN212.Views.Ingredients
                 LoadIngredients();
                 txtStatus.Text = $"Đã nhập kho cho \"{ingredient.IngredientName}\".";
             }
+        }
+
+        //Quay lại
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
