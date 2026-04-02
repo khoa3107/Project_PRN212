@@ -53,6 +53,54 @@
                 <DataGridTextColumn Header="Trạng thái"  Binding="{Binding Status}"             Width="90"/>
                 <DataGridTextColumn Header="Ghi chú"     Binding="{Binding Note}"               Width="*"/>
                 <DataGridTextColumn Header="Người tạo"   Binding="{Binding CreatedByNavigation.Username}" Width="90"/>
+                <DataGridTemplateColumn Header="Thao tác" Width="190">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Completed">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <Button Content="✅ Hoàn thành" Width="95" Height="24" Margin="2,0" Background="#28a745" Foreground="White" Tag="{Binding PlanId}" Click="BtnComplete_Click"/>
+                                    <Button Content="❌ Từ chối" Width="70" Height="24" Margin="2,0" Background="#dc3545" Foreground="White" Tag="{Binding PlanId}" Click="BtnReject_Click"/>
+                                </StackPanel>
+                                <TextBlock Text="Đã hoàn thành" Foreground="#28a745" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Completed">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Text="Đã từ chối" Foreground="#dc3545" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -20,6 +20,16 @@
                 <DataGridTextColumn Header="Ngày SX" Binding="{Binding ProductionDate, StringFormat=dd/MM/yyyy}" Width="100"/>
                 <DataGridTextColumn Header="HSD" Binding="{Binding ExpiryDate, StringFormat=dd/MM/yyyy}" Width="100"/>
                 <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
+                <DataGridTemplateColumn Header="Thao tác" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="✏️ Sửa" Width="60" Height="24" Margin="2,0" Background="#007bff" Foreground="White" Tag="{Binding DishId}" Click="BtnEdit_Click"/>
+                                <Button Content="🗑️ Xóa" Width="60" Height="24" Margin="2,0" Background="#dc3545" Foreground="White" Tag="{Binding DishId}" Click="BtnDelete_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
