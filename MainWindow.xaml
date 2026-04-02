@@ -24,7 +24,10 @@
 
                  <!-- Production Role -->
                  <Button x:Name="btnProduction" Content="Sản Xuất (Bếp)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnProduction_Click"/>
-                
+
+                 <!-- Product Role -->
+                 <Button x:Name="btnProduct" Content="Thành Phẩm (Product)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnProduct_Click"/>
+
                 <!-- Store Role -->
                 <Button x:Name="btnReceive" Content="Nhận Hàng (Cửa hàng)" Height="30" Margin="0,0,0,10" Visibility="Collapsed" Click="BtnStore_Click"/>
 

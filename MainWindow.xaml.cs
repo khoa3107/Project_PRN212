@@ -25,11 +25,15 @@ namespace Project_PRN212
                     btnManageIngredient.Visibility = Visibility.Visible;
                     btnExport.Visibility = Visibility.Visible;
                     btnReceive.Visibility = Visibility.Visible;
+                    btnProduction.Visibility = Visibility.Visible;
+                    btnProduct.Visibility = Visibility.Visible;
                 }
                 else if (role == "kitchen")
                 {
                     btnManageIngredient.Visibility = Visibility.Visible;
                     btnExport.Visibility = Visibility.Visible;
+                    btnProduction.Visibility = Visibility.Visible;
+                    btnProduct.Visibility = Visibility.Visible;
                 }
                 else if (role == "store")
                 {
@@ -58,8 +62,18 @@ namespace Project_PRN212
         {
             var btn = sender as System.Windows.Controls.Button;
             if (btn?.Name == "btnProduction")
+            {
                 new Views.Productions.ProductionWindow { Owner = this }.ShowDialog();
-            MessageBox.Show("Chức năng sản xuất sẽ tích hợp sau.");
+            }
+        }
+
+        private void BtnProduct_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as System.Windows.Controls.Button;
+            if (btn?.Name == "btnProduct")
+            {
+                new Views.Products.ProductWindow { Owner = this }.ShowDialog();
+            }
         }
 
         private void BtnStore_Click(object sender, RoutedEventArgs e)
