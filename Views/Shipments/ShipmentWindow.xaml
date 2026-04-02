@@ -13,8 +13,8 @@
         <TextBlock Grid.Row="0" Text="📦 Quản lý Phiếu Xuất Hàng" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,15"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="🔄 Làm mới" Width="90" Height="30" Margin="0,0,10,0" Background="#6c757d" Foreground="White" Click="BtnRefresh_Click"/>
-            <Button Content="➕ Tạo Phiếu Xuất" Width="120" Height="30" Background="#28a745" Foreground="White" FontWeight="Bold" Click="BtnCreate_Click"/>
+            <Button Content=" Làm mới" Width="90" Height="30" Margin="0,0,10,0" Background="#6c757d" Foreground="White" Click="BtnRefresh_Click"/>
+            <Button Content=" Tạo Phiếu Xuất" Width="120" Height="30" Background="#28a745" Foreground="White" FontWeight="Bold" Click="BtnCreate_Click"/>
         </StackPanel>
 
         <DataGrid Grid.Row="2" x:Name="dgShipments" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#f8f9fa">

@@ -48,11 +48,15 @@ namespace Project_PRN212
         {
             var btn = sender as System.Windows.Controls.Button;
             if (btn?.Name == "btnManageIngredient")
+            {
                 new IngredientWindow { Owner = this }.ShowDialog();
+            }
             else if (btn?.Name == "btnExport")
             {
-                // Mở cửa sổ Quản lý Phiếu Xuất
-                new Views.Shipments.ShipmentWindow { Owner = this }.ShowDialog();
+                // Tích hợp: Mở cửa sổ quản lý phiếu xuất
+                var shipmentWin = new Project_PRN212.Views.Shipments.ShipmentWindow();
+                shipmentWin.Owner = this;
+                shipmentWin.ShowDialog();
             }
         }
 
