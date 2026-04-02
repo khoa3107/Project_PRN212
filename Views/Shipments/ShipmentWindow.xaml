@@ -1,0 +1,31 @@
+<Window x:Class="Project_PRN212.Views.Shipments.ShipmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý Xuất Hàng (Shipments)" Height="550" Width="850"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="📦 Quản lý Phiếu Xuất Hàng" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,15"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="🔄 Làm mới" Width="90" Height="30" Margin="0,0,10,0" Background="#6c757d" Foreground="White" Click="BtnRefresh_Click"/>
+            <Button Content="➕ Tạo Phiếu Xuất" Width="120" Height="30" Background="#28a745" Foreground="White" FontWeight="Bold" Click="BtnCreate_Click"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" x:Name="dgShipments" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#f8f9fa">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã Phiếu" Binding="{Binding ShipmentId}" Width="80"/>
+                <DataGridTextColumn Header="Cửa hàng nhận" Binding="{Binding Store.StoreName}" Width="200"/>
+                <DataGridTextColumn Header="Ngày tạo" Binding="{Binding ShipmentDate, StringFormat=dd/MM/yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="100"/>
+                <DataGridTextColumn Header="Người tạo" Binding="{Binding CreatedByNavigation.Username}" Width="100"/>
+                <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

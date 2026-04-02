@@ -50,8 +50,10 @@ namespace Project_PRN212
             if (btn?.Name == "btnManageIngredient")
                 new IngredientWindow { Owner = this }.ShowDialog();
             else if (btn?.Name == "btnExport")
-                //4. Xuất hàng (shipments)
-                MessageBox.Show("Chức năng xuất hàng sẽ tích hợp sau.");
+            {
+                // Mở cửa sổ Quản lý Phiếu Xuất
+                new Views.Shipments.ShipmentWindow { Owner = this }.ShowDialog();
+            }
         }
 
         private void BtnProduction_Click(object sender, RoutedEventArgs e)
